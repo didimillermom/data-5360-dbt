@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: insurance_landing
+    database: DEONMILLERPOZO
+    schema: INSURANCE_INSURANCE_DW_SOURCE
+    tables:
+      - name: agents
+      - name: claims
+      - name: customers
+      - name: policies
+
