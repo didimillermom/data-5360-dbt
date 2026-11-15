@@ -24,7 +24,7 @@ models:
     description: |
       Staging model for customer service interactions.
       Each record represents a call between a customer and an agent.
-       columns:
+    columns:
       - name: issue_type
         tests:
           - accepted_values:
