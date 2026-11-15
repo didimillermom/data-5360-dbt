@@ -3,6 +3,10 @@ version: 2
 models:
   - name: oliver_dim_customer
     description: "Oliver's Customer Dimension"
+    columns:
+      - name: customer_key
+        tests:
+          - unique
 
   - name: oliver_dim_date
     description: "Oliver's Date Dimension"
@@ -18,6 +22,10 @@ models:
 
   - name: fact_sales
     description: "Oliver's Sales Fact Table"
+    columns:
+      - name: customer_key
+        tests:
+          - not_null
 
   
   - name: stg_employee_certifications
@@ -25,6 +33,21 @@ models:
       Staging model for employee certifications.
       Parses certification details from JSON into
       separate fields for name, cost, and awarded date.
+    columns:
+      - name: certification_name
+        tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - "Cash Handling and Security"
+                  - "Conflict Resolution"
+                  - "Customer Service Excellence"
+                  - "Inventory Management"
+                  - "Leadership and Coaching"
+                  - "Point of Sale Operations"
+                  - "Product Knowledge Level 2"
+                  - "Strategic Retail Operations"
+                  - "Workplace Safety"
 
   - name: fact_certification
     description: |
@@ -32,4 +55,10 @@ models:
       The grain is one row per employee certification completion.
       Contains employee and date dimension keys,
       certification name, and certification cost.
-  
+    columns:
+      - name: employee_key
+        tests:
+          - relationships:
+              arguments:
+                to: ref('oliver_dim_employee')
+                field: employee_key  
